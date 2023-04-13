@@ -55,10 +55,10 @@ Hellcat is a backdoor built to infect Windows machines. It uses Telegram as a C2
 ## Build
 To build the payload, you can just <b>double-click</b> the batch file. In case you want to pack it, you can move your <a href="https://upx.github.io/">UPX</a> to the path that's already set in the batch file or just specify the path yourself. If you don't want to pack the payload, then just comment it out.
 
+<img src="assets/build.gif" alt="fatebot" width="700" height="410">
+
 ## Bot API
 To build the Telegram bot API, you can go to <a href="https://t.me/botfather">BotFather</a> and ask for a new bot. Then, name your bot and choose a username for it, and you're done! If you don't know the command, you can type <b>"/help"</b> and it will show you a lot of useful commands.
-
-<img src="assets/build.gif" alt="fatebot" width="700" height="410">
 
 ## Requirement
 
