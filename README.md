@@ -7,7 +7,7 @@
 		<img src="https://img.shields.io/badge/license-MIT license-orange?style=plastic">
 	</a>
 	<a href="https://github.com/boz3r/Hellcat">
-    		<img src="https://img.shields.io/badge/version-v1.0.0-black?style=plastic">
+    		<img src="https://img.shields.io/badge/version-v1.1.0-black?style=plastic">
 	</a>
 	<a href="https://go.dev/">
     		<img src="https://img.shields.io/badge/language-Go-orange?style=plastic">
