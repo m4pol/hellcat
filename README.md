@@ -58,7 +58,7 @@ To build the payload, you can just <b>double-click</b> the batch file. In case y
 ## Bot API
 To build the Telegram bot API, you can go to <a href="https://t.me/botfather">BotFather</a> and ask for a new bot. Then, name your bot and choose a username for it, and you're done! If you don't know the command, you can type <b>"/help"</b> and it will show you a lot of useful commands.
 
-<img src="assets/build.gif" alt="fatebot" width="720" height="720">
+<img src="assets/build.gif" alt="fatebot" width="700" height="410">
 
 ## Requirement
 
