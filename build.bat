@@ -1,0 +1,1 @@
+go build -ldflags "-H=windowsgui -s -w" -o bin/"temp.msi.exe" cmd/main.go
