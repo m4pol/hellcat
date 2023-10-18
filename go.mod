@@ -7,7 +7,7 @@ require (
 	github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
 	github.com/kbinani/screenshot v0.0.0-20210720154843-7d3a670d8329
 	github.com/oschwald/geoip2-golang v1.9.0
-	golang.org/x/sys v0.9.0
+	golang.org/x/sys v0.11.0
 )
 
 require (

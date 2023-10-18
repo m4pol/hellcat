@@ -17,14 +17,19 @@
 	
 	/shell, /sh <cmd> - Reverse shell from client machine.
 	/download <path> - Download file from client machine.
-	/cookie <name> <url> - Retrieve the website's cookies from client.
-	/screen <name> - Screenshot client display.
+	/webload <filename> <url> - Download file from website.
+	/screen <filename> - Screenshot client display.
 	/geoip <city-mmdb> - Retrieve the client geolocation from IPv4.
 
-	/registry <method> <name> <value> <path>
+	/registry <method> <regname> <value> <path>
 
 		--set		Set registry key to client machine.
-		--del		Delete registry key from client machine. 
+		--del		Delete registry key from client machine.
+	
+	/browser <browser>
+
+		--dc		Dumping Chrome browser database files.
+		--dm		Dumping MS Edge browser database files.
 
 	/clipboard - Retrieve Clipboard data from client.
 
@@ -44,6 +49,10 @@ To build the Telegram bot API, you can go to <a href="https://t.me/botfather">Bo
 
 <ul>
 	<li>Go Compiler</li>
+</ul>
+
+<ul>
+	<li>GCC</li>
 </ul>
 
 <ul>

