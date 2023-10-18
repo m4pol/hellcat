@@ -52,9 +52,5 @@ To build the Telegram bot API, you can go to <a href="https://t.me/botfather">Bo
 </ul>
 
 <ul>
-	<li>GCC</li>
-</ul>
-
-<ul>
 	<li>Code\Text Editor</li>
 </ul>
