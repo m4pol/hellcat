@@ -36,7 +36,7 @@
 Hellcat is a backdoor built to infect Windows machines. It uses Telegram as a C2 server to communicate between the attacker and the client. However, it can only set one Telegram bot API per payload. This means that if you want to infect another machine, you need to build a new payload with a new Telegram bot API. It is inspired by the <a href="https://github.com/byt3bl33d3r/gcat">gcat</a> and <a href="https://github.com/maldevel/gdog">gdog</a> backdoors.
 
 ## Build
-To build the payload, you can simply <b>double-click</b> the batch file. The binary file that is used to be implanted in the target machine will be located in the "bin" folder.
+To build the implant, you can simply <b>double-click</b> the batch file. The binary file that is used to be implanted in the target machine will be located in the "bin" folder.
 
 ## Bot API
 To build the Telegram bot API, you can go to <a href="https://t.me/botfather">BotFather</a> and ask for a new bot. Then, name your bot and choose a username for it, and you're done! If you don't know the command, you can type <b>"/help"</b> and it will show you a lot of useful commands.
